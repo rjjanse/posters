@@ -1,0 +1,365 @@
+---
+title: "Predicting the risk of and days without albuminuria as an early marker of kidney disease in patients with diabetes mellitus: a development and validation study"
+subtitle: "Additional information for the focussed oral at the 62^nd^ ERA conference, Vienna 2025"
+author:
+      - name: "Roemer J. Janse"
+        orcid: 0000-0003-0059-872X
+        email: r.j.janse@lumc.nl
+        affiliations:
+        - ref: lumc
+      - name: "Chava L. Ramspek"
+        affiliations:
+        - ref: lumc
+      - name: "Marretje W. Oomen"
+        affiliations:
+        - ref: lumc
+      - name: "Friedo W. Dekker"
+        affiliations:
+        - ref: lumc
+      - name: "Juan-Jesus Carrero"
+        affiliations:
+        - ref: ki
+      - name: "Merel van Diepen"
+        affiliations:
+        - ref: lumc
+affiliations:
+    - id: lumc
+      name: Leiden University Medical Center
+      city: Leiden
+      country: The Netherlands
+    - id: ki
+      name: Karolinska Institutet
+      city: Stockholm
+      country: Sweden
+execute:
+    echo: false
+    warning: false
+format:
+    html:
+        toc: true
+---
+
+## Abstract
+
+**Background**: Patients with type 2 diabetes mellitus (T2DM) are at high risk of kidney disease, which may be ameliorated by early detection of albuminuria. Clinical prediction models (CPMs) can tailor guideline-indicated screening to the individual patient, but no adequate CPMs are currently available. Modern methods allow us to predict more than just a single risk at a single point in time. We aimed to predict 3-year albuminuria risk to show how risk progresses over time, albuminuria-free time in days as a more intuitive outcome, and the risk of different outcomes over 3 years, at the moment of a first normoalbuminuric test.
+
+**Methods**: We used data from the Stockholm Creatinine Measurements cohort. We selected patients with T2DM, a normoalbuminuric test, and no prior albuminuria between 2007-2021 from all Stockholm residents. Subsequently, we created a development (2007-2013) and temporal validation (2014-2021) cohort. Predictors were selected based on clinical expertise, literature, and previous CPMs. Albuminuria was defined as urine albumin-creatinine ratio (uACR) ≥30mg/g. We predicted an individual’s risk of albuminuria using a Fine-Gray CPM taking into account the competing risk of death and showing risk progression over time. Additionally, we predicted the albuminuria-free time using an accelerated failure time (AFT) CPM. Lastly, we simultaneously predicted the risks of microalbuminuria (uACR ≥30mg/g & <300mg/g), macroalbuminuria (uACR ≥300mg/g), and death using a multistate CPM. Model discrimination and calibration were assessed in the development and temporal validation cohort. 
+
+**Results**: The development cohort contained 38,649 individuals with 6,904 events and the validation cohort contained 45,009 individuals with 6,499 events. The Fine-Gray CPM had adequate discrimination internally (C-statistic, 95%CI; 0.64, 0.64-0.65) and temporally (0.66, 0.66-0.67). Calibration was good. The Fine-Gray model was also able to accurately show individual albuminuria risk progression over 3 years. The AFT CPM had adequate discrimination (internally: 0.63, 0.62-0.63; temporally: 0.65, 0.64-0.65), but poor calibration. The multistate CPM allowed individual predictions for each state over 3 years. An example of an individual’s predictions is shown in the Figure.
+
+**Discussion**: Predicting albuminuria in T2DM patients allows tailoring albuminuria screening to the individual. We developed multiple CPMs that accurately provide the probability of developing different stages of albuminuria over time. The Fine-Gray model and multistate model give the patient and healthcare provider insight in how the risk of albuminuria develops over time. Additionally, the multistate CPM allows shared decision-making taking into account not only the main outcome of interest, but also other events that may occur (e.g. death). These models can serve to improve albuminuria screening and ameliorate the risk of kidney damage in patients with T2DM, partially through novel presentation of prognostic information.
+
+## Baseline characteristics
+
+```{r set-up}
+# Resolve magrittr::extract conflict
+conflicted::conflict_prefer("extract", winner = "magrittr", quiet = TRUE)
+
+# Resolve dplyr::filter conflict
+conflicted::conflict_prefer("filter", winner = "dplyr", quiet = TRUE)
+
+# Load packages
+pacman::p_load("dplyr",          # Data wrangling
+               "magrittr",       # Better pipelines
+               "conflicted",     # Resolve function conflicts
+               "stringr",        # Working with strings
+               "survival",       # Survival models
+               "splines",        # Splines
+               "intsurv",        # C statistic
+               "ggplot2",        # Data visualization
+               "rms",            # Outcome linearity
+               "broom",          # Tidy data
+               "tableone",       # Table 1
+               "cowplot",        # Data viz. add-on
+               "patchwork",      # Combine plots
+               "plotly",         # Interactive plots
+               "mstate",         # Multistate modelling
+               "tidyr",          # Tidying data
+               "knitr",          # Knit data
+               "kableExtra"      # More table possibilities
+)
+
+
+# Path
+path <- "C:/Users/rjjanse.LUMCNET/OneDrive - LUMC/Research/Projects/13. dm_alb/codes/dataframes/"
+
+# Load data
+load(paste0(path, "cohort_imputed.Rdata"))
+
+# Development data
+cohort_dev <- filter(cohort, cohort == "development")
+
+# Validation data
+cohort_val <- filter(cohort, cohort == "validation")
+
+# Load functions
+source("https://raw.githubusercontent.com/rjjanse/alb/main/3x-functions-20240215.R")
+
+```
+
+```{r table one}
+# Function to add row within table
+add_row <- function(table, label, after_row, label_is_rowname = TRUE, ncol = 8){
+    # If label is rowname
+    if(label_is_rowname){
+        # Create row
+        row <- matrix("", nrow = 1, ncol = ncol) 
+        
+        # Set rowname
+        rownames(row) <- label
+    }
+    
+    # Else
+    else {
+        row <- matrix(c(label, rep("", ncol - 1)), nrow = 1)
+    }
+    
+    # Split table
+    table_first <- table[1:after_row, ]; table_second <- table[(after_row + 1):nrow(table), ]
+    
+    # Add row in between
+    table_new <- rbind(table_first, row, table_second)
+    
+    # Return new table
+    return(table_new)
+}
+
+# Load imputation
+load(paste0(path, "imputation.Rdata"))
+
+# Table one data development
+dat_tab_development <- filter(cohort_imputed[["data"]], cohort == "development")
+
+# Table one data validation
+dat_tab_validation <- filter(cohort_imputed[["data"]], cohort == "validation")
+
+
+# Specify which variables in the dataset you want to include in the baseline table
+listvar <- c(
+    # General information
+    "age", "female", "education", 
+    # Comorbidities
+    "fibrillation", "chf", "cvd", "hypertension", "ihd", "pvd", 
+    # Diabetic complications
+    "ulcer", "retinopathy", "neuropathy",
+    # Medication
+    "aspirin", "bblockers", "ccbs", "glucose_lowering", "anticoagulants", "antihypertensives", "insulin", "mras",
+    "rasi", "statins",
+    # Lab
+    "index_alb", "egfr", "hba1c", "ldl", "hdl", "total_cholesterol", "tc_hdl", "triglycerides", "ucrea"
+)
+
+# Specify which variables are continuous
+continuous <- c("age", "index_alb", "egfr", "hba1c", "ldl", "hdl", "total_cholesterol", "tc_hdl", "triglycerides", "ucrea") 
+
+# Specify that all variables not continuous are categorical
+catvar <- listvar[!listvar %in% continuous]
+
+# Labels
+labels <- c("Number of individuals",
+            "Age, yrs, mean (SD)",
+            "Female (%)",
+            "Higher education (%)",
+            "Atrial fibrillation (%)",
+            "Congestive heart failure (%)",
+            "Cereborvascular disease (%)",
+            "Hypertension (%)",
+            "Ischemic heart disease (%)",
+            "Peripheral vascular disease (%)",
+            "Ulcer (%)",
+            "Retinopathy (%)",
+            "Neuropathy (%)",
+            "Aspirin (%)",
+            "Beta blockers (%)",
+            "Calcium-channel blockers (%)",
+            "Glucose lowering drugs (%)",
+            "Anticoagulants (%)",
+            "Antihypertensives (%)",
+            "Insulin (%)",
+            "MRAs (%)",
+            "RASi (%)",
+            "Statins (%)",
+            "uACR, mg/g, median [IQR]",
+            "eGFR, mL/min/1.73m2, median [IQR]",
+            "HbA1c, mmol/mol, median [IQR]",
+            "LDL, mg/dL, mean (SD)",
+            "HDL, mg/dL, median [IQR]",
+            "Total cholesterol, mg/dL, median [IQR]",
+            "Total cholesterol:HDL ratio, mean (SD)",
+            "Triglycerides, mg/dL, median [IQR]",
+            "Urine creatinine, mg/dL, median [IQR]"
+)
+
+# Makes baseline table for development
+tab_one_development <- CreateTableOne(vars = listvar, data = dat_tab_development, factorVars = catvar, addOverall = TRUE, smd = FALSE, 
+                                      strata = "microalb_y3") %>%
+    # Print table
+    print(printToggle = FALSE, noSpaces = TRUE, catDigits = 1, contDigits = 1, pDigits = 3, 
+          nonnormal = c("egfr", "index_alb", "hba1c", "hdl", "total_cholesterol", "triglycerides", "ucrea"), smd = FALSE) %>%
+    # Change to data frame
+    as.data.frame() %>%
+    # Keep only relevant columns
+    magrittr::extract(, 1:4) %>%
+    # Back to matrix
+    as.matrix() %>%
+    # Set labels
+    set_rownames(labels) %>%
+    # Set columns
+    set_colnames(c("Overall", "Censored", "Albuminuria", "Died")) %>%
+    # Add commas for large numbers
+    prettyNum(big.mark = ",")
+
+# Makes baseline table for validation
+tab_one_validation <- CreateTableOne(vars = listvar, data = dat_tab_validation, factorVars = catvar, addOverall = TRUE, smd = FALSE, 
+                                     strata = "microalb_y3") %>%
+    # Print table
+    print(printToggle = FALSE, noSpaces = TRUE, catDigits = 1, contDigits = 1, pDigits = 3, 
+          nonnormal = c("egfr", "index_alb", "hba1c", "hdl", "total_cholesterol", "triglycerides", "ucrea"), smd = FALSE) %>%
+    # Keep only relevant columns
+    magrittr::extract(, 1:4) %>%
+    # Back to matrix
+    as.matrix() %>%
+    # Set labels
+    set_rownames(labels) %>%
+    # Set columns
+    set_colnames(c("Overall ", "Censored ", "Albuminuria ", "Died ")) %>%
+    # Add commas for large numbers
+    prettyNum(big.mark = ",")
+
+# Combine tables
+tab_one <- cbind(tab_one_development, tab_one_validation)
+
+# Add rows
+tab_one <- add_row(tab_one, "Comorbidities", 4)
+tab_one <- add_row(tab_one, "Diabetic complications", 11)
+tab_one <- add_row(tab_one, "Medication use", 15)
+tab_one <- add_row(tab_one, "Laboratory values", 26)
+
+# Print table
+kable(tab_one) %>%
+    # Theme
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), fixed_thead = TRUE) %>%
+    # Grouped header
+    add_header_above(c("", "Development" = 4, "Validation" = 4))
+
+```
+
+## Predictors
+
+The following predictors were included:
+
+```{r predictors}
+tab_pred <- matrix(c("Female",                      "Binary",
+                     "Age",                         "Natural spline w/ knot at 60",
+                     "Education",                   "Binary",
+                     "Diabetes months",             "Linear",
+                     "Atrial fibrillation",         "Binary",
+                     "Congestive heart failure",    "Binary",
+                     "Cerebrovascular disease",     "Binary",
+                     "Hypertension",                "Binary",
+                     "Ischemic heart disease",      "Binary",
+                     "Neuropathy",                  "Binary",
+                     "Peripheral vascular disease", "Binary",
+                     "Retinopathy",                 "Binary",
+                     "Ulcer",                       "Binary",
+                     "Aspirin",                     "Binary",
+                     "Beta blockers",               "Binary",
+                     "Glucose lowering drugs",      "Binary",
+                     "Calcium-channel blockers",    "Binary",
+                     "Anticoagulants",              "Binary",
+                     "Antihypertensives",           "Binary",
+                     "Insulin",                     "Binary",
+                     "MRAs",                        "Binary",
+                     "RASi",                        "Binary",
+                     "Statins",                     "Binary",
+                     "eGFR",                        "Natural spline w/ knot at 105",
+                     "Urine creatinine",            "Natural spline w/ knot at 180",
+                     "HbA1c",                       "Natural spline w/ knots at 40 and 65",
+                     "Total cholesterol",           "Natural spline w/ knot at 100",
+                     "HDL",                         "Natural spline w/ knot at 25",
+                     "LDL",                         "Natural spline w/ knot at 80",
+                     "Triglycerides",               "Linear",
+                     "Total cholesterol:HDL",       "Natrual spline w/ knot at 5",
+                     "Baseline uACR",               "Natural spline w/ knot at 15"),
+                   ncol = 2, byrow = TRUE) %>%
+    # Set column names
+    set_colnames(c("Predictor", "Handling"))
+
+# Add rows
+tab_pred <- add_row(tab_pred, "Comorbidities", 4, label_is_rowname = FALSE, ncol = 2)
+tab_pred <- add_row(tab_pred, "Diabetic complications", 11, label_is_rowname = FALSE, ncol = 2)
+tab_pred <- add_row(tab_pred, "Medication use", 15, label_is_rowname = FALSE, ncol = 2)
+tab_pred <- add_row(tab_pred, "Laboratory values", 26, label_is_rowname = FALSE, ncol = 2)
+
+# Print table
+kable(tab_pred) %>%
+    # Theme
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), fixed_thead = TRUE) 
+
+```
+
+## Fine-Gray model
+
+The Fine-Gray model was developed in the development cohort (*n = 38,649*), where *6,904* individuals developed albuminuria, *1,553* died, and *30,192* were censored. In the temporal validation cohort (*n = 45,009*), *6,499* individuals developed albuminuria, *901* individuals died, and *37,609* individuals were censored. 
+
+The calibration of the Fine-Gray model was good from one year onwards, with calibration at three years being:
+
+![Fine-Gray calibration](images/fg_cal.png){fig-align="center"}
+
+Although the right tail shows miscalibration, it is important to note that the majority of the 80,000 individuals had a predicted risk below 40%, where calibration was good. The C-statistic of the model was 0.64 (0.64-0.65) apparently and 0.66 (0.66-0.67) temporally. Although discrimination could be higher, the histograms below the above discrimination plot shows that the risks between individuals with and without event are separated in good discrimination for lower risk and higher risks with an indiscriminative range in-between. Thus, the model could be useful for the identification of individuals with a low and high risk.
+
+## Accelerated failure time model
+
+The accelerated failure time (AFT) model was fit using two distributions: i) a Weibull distribution which assumes an increasing hazard of albuminuria over time, and ii) a log-normal distribution which assumes an early increase in hazard of albuminuria, with a decreasing hazard afterwards.
+
+For both distributions, we calculated the failure time (which can be interpeted as the number of days without albuminuria and not censored) and the risk of albuminuria. The failure time was poorly calibrated, with times far exceeding the observation time (although the calibration slope indicated no overfitting or underfitting). From the same model, we could calculate risks, which performed similar to the Fine-Gray model, indicating no model misspecification. The calibration plots of the failure time are given below:
+
+![AFT calibration](images/aft_cal_eft.png){fig-align="center"}
+
+## Multistate model
+
+The multistate model was fitted with covariate expansion. The state model is seen below:
+
+![State model](images/multistate.png){fig-align="center"}
+
+For the development data, the transition numbers were:
+
+```{r transitions development}
+# Get transition matrix
+trans <- structure(c(0, 0, 0, 0, 5927, 0, 0, 0, 977, 423, 0, 0, 1553, 
+                     317, 141, 0, 30192, 5187, 1259, 2011, 38649, 5927, 1400, 2011
+                     ), class = "table", dim = c(4L, 6L), 
+                   dimnames = list(From = c("Baseline", "Microalbuminuria", "Macroalbuminuria", "Death"), 
+                                   To = c("Baseline", "Microalbuminuria", "Macroalbuminuria", "Death", 
+                                          "No event", "Total entering")))
+
+# Print table
+kable(trans) %>%
+    # Theme
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+
+```
+
+For the validation data, these were:
+
+```{r transitions validation}
+# Get transition matrix
+trans <- structure(c(0, 0, 0, 0, 5240, 0, 0, 0, 1256, 400, 0, 0, 904, 
+                     245, 182, 0, 37609, 4595, 1474, 1331, 45009, 5240, 1656, 1331
+                     ), class = "table", dim = c(4L, 6L), 
+                   dimnames = list(From = c("Baseline", "Microalbuminuria", "Macroalbuminuria", "Death"), 
+                                   To = c("Baseline", "Microalbuminuria", "Macroalbuminuria", "Death", 
+                                          "No event", "Total entering")))
+
+# Print table
+kable(trans) %>%
+    # Theme
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+
+```
+
+The model calibrated well from one year onwards, with calibration at three years being:
+
+![Multistate model  calibration](images/cal_mstate_1095.png){fig-align="center"}
+
+Additionally, discrimination at three years was 0.57 apparently and 0.54 temporally. If micro- and macroalbuminuria were considered together as a single outcome, this improved to 0.71 and 0.68 in apparent and temporal validation, respectively.

@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Roemer J. Janse">
+<meta name="author" content="Chava L. Ramspek">
+<meta name="author" content="Marretje W. Oomen">
+<meta name="author" content="Friedo W. Dekker">
+<meta name="author" content="Juan-Jesus Carrero">
+<meta name="author" content="Merel van Diepen">
+
+<title>Predicting the risk of and days without albuminuria as an early marker of kidney disease in patients with diabetes mellitus: a development and validation study</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="predicting_albuminuria_files/libs/clipboard/clipboard.min.js"></script>
+<script src="predicting_albuminuria_files/libs/quarto-html/quarto.js"></script>
+<script src="predicting_albuminuria_files/libs/quarto-html/popper.min.js"></script>
+<script src="predicting_albuminuria_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="predicting_albuminuria_files/libs/quarto-html/anchor.min.js"></script>
+<link href="predicting_albuminuria_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="predicting_albuminuria_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="predicting_albuminuria_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="predicting_albuminuria_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="predicting_albuminuria_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="predicting_albuminuria_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="predicting_albuminuria_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#baseline-characteristics" id="toc-baseline-characteristics" class="nav-link" data-scroll-target="#baseline-characteristics">Baseline characteristics</a></li>
+  <li><a href="#predictors" id="toc-predictors" class="nav-link" data-scroll-target="#predictors">Predictors</a></li>
+  <li><a href="#fine-gray-model" id="toc-fine-gray-model" class="nav-link" data-scroll-target="#fine-gray-model">Fine-Gray model</a></li>
+  <li><a href="#accelerated-failure-time-model" id="toc-accelerated-failure-time-model" class="nav-link" data-scroll-target="#accelerated-failure-time-model">Accelerated failure time model</a></li>
+  <li><a href="#multistate-model" id="toc-multistate-model" class="nav-link" data-scroll-target="#multistate-model">Multistate model</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Predicting the risk of and days without albuminuria as an early marker of kidney disease in patients with diabetes mellitus: a development and validation study</h1>
+<p class="subtitle lead">Additional information for the focussed oral at the 62<sup>nd</sup> ERA conference, Vienna 2025</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Roemer J. Janse <a href="mailto:r.j.janse@lumc.nl" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-0059-872X" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Leiden University Medical Center
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Chava L. Ramspek </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Leiden University Medical Center
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Marretje W. Oomen </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Leiden University Medical Center
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Friedo W. Dekker </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Leiden University Medical Center
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Juan-Jesus Carrero </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Karolinska Institutet
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Merel van Diepen </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Leiden University Medical Center
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<p><strong>Background</strong>: Patients with type 2 diabetes mellitus (T2DM) are at high risk of kidney disease, which may be ameliorated by early detection of albuminuria. Clinical prediction models (CPMs) can tailor guideline-indicated screening to the individual patient, but no adequate CPMs are currently available. Modern methods allow us to predict more than just a single risk at a single point in time. We aimed to predict 3-year albuminuria risk to show how risk progresses over time, albuminuria-free time in days as a more intuitive outcome, and the risk of different outcomes over 3 years, at the moment of a first normoalbuminuric test.</p>
+<p><strong>Methods</strong>: We used data from the Stockholm Creatinine Measurements cohort. We selected patients with T2DM, a normoalbuminuric test, and no prior albuminuria between 2007-2021 from all Stockholm residents. Subsequently, we created a development (2007-2013) and temporal validation (2014-2021) cohort. Predictors were selected based on clinical expertise, literature, and previous CPMs. Albuminuria was defined as urine albumin-creatinine ratio (uACR) ≥30mg/g. We predicted an individual’s risk of albuminuria using a Fine-Gray CPM taking into account the competing risk of death and showing risk progression over time. Additionally, we predicted the albuminuria-free time using an accelerated failure time (AFT) CPM. Lastly, we simultaneously predicted the risks of microalbuminuria (uACR ≥30mg/g &amp; &lt;300mg/g), macroalbuminuria (uACR ≥300mg/g), and death using a multistate CPM. Model discrimination and calibration were assessed in the development and temporal validation cohort.</p>
+<p><strong>Results</strong>: The development cohort contained 38,649 individuals with 6,904 events and the validation cohort contained 45,009 individuals with 6,499 events. The Fine-Gray CPM had adequate discrimination internally (C-statistic, 95%CI; 0.64, 0.64-0.65) and temporally (0.66, 0.66-0.67). Calibration was good. The Fine-Gray model was also able to accurately show individual albuminuria risk progression over 3 years. The AFT CPM had adequate discrimination (internally: 0.63, 0.62-0.63; temporally: 0.65, 0.64-0.65), but poor calibration. The multistate CPM allowed individual predictions for each state over 3 years. An example of an individual’s predictions is shown in the Figure.</p>
+<p><strong>Discussion</strong>: Predicting albuminuria in T2DM patients allows tailoring albuminuria screening to the individual. We developed multiple CPMs that accurately provide the probability of developing different stages of albuminuria over time. The Fine-Gray model and multistate model give the patient and healthcare provider insight in how the risk of albuminuria develops over time. Additionally, the multistate CPM allows shared decision-making taking into account not only the main outcome of interest, but also other events that may occur (e.g.&nbsp;death). These models can serve to improve albuminuria screening and ameliorate the risk of kidney damage in patients with T2DM, partially through novel presentation of prognostic information.</p>
+</section>
+<section id="baseline-characteristics" class="level2">
+<h2 class="anchored" data-anchor-id="baseline-characteristics">Baseline characteristics</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; empty-cells: hide; border-bottom: hidden;"></th>
+<th colspan="4" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Development
+</div></th>
+<th colspan="4" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Validation
+</div></th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;"></th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Overall</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Censored</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Albuminuria</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Died</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Overall</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Censored</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Albuminuria</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Died</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Number of individuals</td>
+<td style="text-align: left;">38,649</td>
+<td style="text-align: left;">30,192</td>
+<td style="text-align: left;">6,904</td>
+<td style="text-align: left;">1,553</td>
+<td style="text-align: left;">45,009</td>
+<td style="text-align: left;">37,609</td>
+<td style="text-align: left;">6,499</td>
+<td style="text-align: left;">901</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Age, yrs, mean (SD)</td>
+<td style="text-align: left;">63.3 (12.6)</td>
+<td style="text-align: left;">62.3 (12.4)</td>
+<td style="text-align: left;">65.8 (12.3)</td>
+<td style="text-align: left;">73.5 (11.4)</td>
+<td style="text-align: left;">62.2 (12.9)</td>
+<td style="text-align: left;">61.4 (12.7)</td>
+<td style="text-align: left;">65.3 (13.2)</td>
+<td style="text-align: left;">73.1 (11.2)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Female (%)</td>
+<td style="text-align: left;">16,929 (43.8)</td>
+<td style="text-align: left;">13,178 (43.6)</td>
+<td style="text-align: left;">3,059 (44.3)</td>
+<td style="text-align: left;">692 (44.6)</td>
+<td style="text-align: left;">18,919 (42.0)</td>
+<td style="text-align: left;">15,747 (41.9)</td>
+<td style="text-align: left;">2,783 (42.8)</td>
+<td style="text-align: left;">389 (43.2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Higher education (%)</td>
+<td style="text-align: left;">10,064 (26.8)</td>
+<td style="text-align: left;">8,206 (27.9)</td>
+<td style="text-align: left;">1,602 (23.8)</td>
+<td style="text-align: left;">256 (17.2)</td>
+<td style="text-align: left;">14,069 (32.5)</td>
+<td style="text-align: left;">12,075 (33.4)</td>
+<td style="text-align: left;">1,766 (28.4)</td>
+<td style="text-align: left;">228 (26.1)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Comorbidities</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Atrial fibrillation (%)</td>
+<td style="text-align: left;">3,121 (8.1)</td>
+<td style="text-align: left;">1,987 (6.6)</td>
+<td style="text-align: left;">828 (12.0)</td>
+<td style="text-align: left;">306 (19.7)</td>
+<td style="text-align: left;">3,175 (7.1)</td>
+<td style="text-align: left;">2,283 (6.1)</td>
+<td style="text-align: left;">730 (11.2)</td>
+<td style="text-align: left;">162 (18.0)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Congestive heart failure (%)</td>
+<td style="text-align: left;">3,198 (8.3)</td>
+<td style="text-align: left;">1,988 (6.6)</td>
+<td style="text-align: left;">811 (11.7)</td>
+<td style="text-align: left;">399 (25.7)</td>
+<td style="text-align: left;">2,267 (5.0)</td>
+<td style="text-align: left;">1,561 (4.2)</td>
+<td style="text-align: left;">540 (8.3)</td>
+<td style="text-align: left;">166 (18.4)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cereborvascular disease (%)</td>
+<td style="text-align: left;">2,834 (7.3)</td>
+<td style="text-align: left;">1,927 (6.4)</td>
+<td style="text-align: left;">642 (9.3)</td>
+<td style="text-align: left;">265 (17.1)</td>
+<td style="text-align: left;">2,614 (5.8)</td>
+<td style="text-align: left;">1,925 (5.1)</td>
+<td style="text-align: left;">562 (8.6)</td>
+<td style="text-align: left;">127 (14.1)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hypertension (%)</td>
+<td style="text-align: left;">22,746 (58.9)</td>
+<td style="text-align: left;">17,239 (57.1)</td>
+<td style="text-align: left;">4,484 (64.9)</td>
+<td style="text-align: left;">1,023 (65.9)</td>
+<td style="text-align: left;">27,145 (60.3)</td>
+<td style="text-align: left;">22,105 (58.8)</td>
+<td style="text-align: left;">4,361 (67.1)</td>
+<td style="text-align: left;">679 (75.4)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ischemic heart disease (%)</td>
+<td style="text-align: left;">7,035 (18.2)</td>
+<td style="text-align: left;">5,083 (16.8)</td>
+<td style="text-align: left;">1,493 (21.6)</td>
+<td style="text-align: left;">459 (29.6)</td>
+<td style="text-align: left;">5,553 (12.3)</td>
+<td style="text-align: left;">4,251 (11.3)</td>
+<td style="text-align: left;">1,109 (17.1)</td>
+<td style="text-align: left;">193 (21.4)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Peripheral vascular disease (%)</td>
+<td style="text-align: left;">1,319 (3.4)</td>
+<td style="text-align: left;">846 (2.8)</td>
+<td style="text-align: left;">326 (4.7)</td>
+<td style="text-align: left;">147 (9.5)</td>
+<td style="text-align: left;">1,033 (2.3)</td>
+<td style="text-align: left;">733 (1.9)</td>
+<td style="text-align: left;">237 (3.6)</td>
+<td style="text-align: left;">63 (7.0)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Diabetic complications</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ulcer (%)</td>
+<td style="text-align: left;">85 (0.2)</td>
+<td style="text-align: left;">52 (0.2)</td>
+<td style="text-align: left;">22 (0.3)</td>
+<td style="text-align: left;">11 (0.7)</td>
+<td style="text-align: left;">134 (0.3)</td>
+<td style="text-align: left;">93 (0.2)</td>
+<td style="text-align: left;">35 (0.5)</td>
+<td style="text-align: left;">6 (0.7)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Retinopathy (%)</td>
+<td style="text-align: left;">211 (0.5)</td>
+<td style="text-align: left;">161 (0.5)</td>
+<td style="text-align: left;">41 (0.6)</td>
+<td style="text-align: left;">9 (0.6)</td>
+<td style="text-align: left;">513 (1.1)</td>
+<td style="text-align: left;">409 (1.1)</td>
+<td style="text-align: left;">91 (1.4)</td>
+<td style="text-align: left;">13 (1.4)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Neuropathy (%)</td>
+<td style="text-align: left;">59 (0.2)</td>
+<td style="text-align: left;">40 (0.1)</td>
+<td style="text-align: left;">18 (0.3)</td>
+<td style="text-align: left;">1 (0.1)</td>
+<td style="text-align: left;">288 (0.6)</td>
+<td style="text-align: left;">222 (0.6)</td>
+<td style="text-align: left;">51 (0.8)</td>
+<td style="text-align: left;">15 (1.7)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Medication use</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Aspirin (%)</td>
+<td style="text-align: left;">13,189 (34.1)</td>
+<td style="text-align: left;">9,748 (32.3)</td>
+<td style="text-align: left;">2,725 (39.5)</td>
+<td style="text-align: left;">716 (46.1)</td>
+<td style="text-align: left;">8,172 (18.2)</td>
+<td style="text-align: left;">6,292 (16.7)</td>
+<td style="text-align: left;">1,598 (24.6)</td>
+<td style="text-align: left;">282 (31.3)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Beta blockers (%)</td>
+<td style="text-align: left;">14,418 (37.3)</td>
+<td style="text-align: left;">10,552 (34.9)</td>
+<td style="text-align: left;">3,098 (44.9)</td>
+<td style="text-align: left;">768 (49.5)</td>
+<td style="text-align: left;">13,245 (29.4)</td>
+<td style="text-align: left;">10,342 (27.5)</td>
+<td style="text-align: left;">2,474 (38.1)</td>
+<td style="text-align: left;">429 (47.6)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Calcium-channel blockers (%)</td>
+<td style="text-align: left;">8,696 (22.5)</td>
+<td style="text-align: left;">6,381 (21.1)</td>
+<td style="text-align: left;">1,889 (27.4)</td>
+<td style="text-align: left;">426 (27.4)</td>
+<td style="text-align: left;">11,243 (25.0)</td>
+<td style="text-align: left;">9,031 (24.0)</td>
+<td style="text-align: left;">1,938 (29.8)</td>
+<td style="text-align: left;">274 (30.4)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Glucose lowering drugs (%)</td>
+<td style="text-align: left;">23,549 (60.9)</td>
+<td style="text-align: left;">18,185 (60.2)</td>
+<td style="text-align: left;">4,512 (65.4)</td>
+<td style="text-align: left;">852 (54.9)</td>
+<td style="text-align: left;">26,883 (59.7)</td>
+<td style="text-align: left;">22,478 (59.8)</td>
+<td style="text-align: left;">3,945 (60.7)</td>
+<td style="text-align: left;">460 (51.1)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Anticoagulants (%)</td>
+<td style="text-align: left;">19,338 (50.0)</td>
+<td style="text-align: left;">14,227 (47.1)</td>
+<td style="text-align: left;">4,055 (58.7)</td>
+<td style="text-align: left;">1,056 (68.0)</td>
+<td style="text-align: left;">13,076 (29.1)</td>
+<td style="text-align: left;">10,035 (26.7)</td>
+<td style="text-align: left;">2,566 (39.5)</td>
+<td style="text-align: left;">475 (52.7)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Antihypertensives (%)</td>
+<td style="text-align: left;">339 (0.9)</td>
+<td style="text-align: left;">244 (0.8)</td>
+<td style="text-align: left;">84 (1.2)</td>
+<td style="text-align: left;">11 (0.7)</td>
+<td style="text-align: left;">349 (0.8)</td>
+<td style="text-align: left;">275 (0.7)</td>
+<td style="text-align: left;">64 (1.0)</td>
+<td style="text-align: left;">10 (1.1)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Insulin (%)</td>
+<td style="text-align: left;">11,142 (28.8)</td>
+<td style="text-align: left;">8,320 (27.6)</td>
+<td style="text-align: left;">2,222 (32.2)</td>
+<td style="text-align: left;">600 (38.6)</td>
+<td style="text-align: left;">5,249 (11.7)</td>
+<td style="text-align: left;">4,112 (10.9)</td>
+<td style="text-align: left;">964 (14.8)</td>
+<td style="text-align: left;">173 (19.2)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MRAs (%)</td>
+<td style="text-align: left;">1,580 (4.1)</td>
+<td style="text-align: left;">1,012 (3.4)</td>
+<td style="text-align: left;">374 (5.4)</td>
+<td style="text-align: left;">194 (12.5)</td>
+<td style="text-align: left;">1,289 (2.9)</td>
+<td style="text-align: left;">958 (2.5)</td>
+<td style="text-align: left;">255 (3.9)</td>
+<td style="text-align: left;">76 (8.4)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RASi (%)</td>
+<td style="text-align: left;">20,350 (52.7)</td>
+<td style="text-align: left;">15,444 (51.2)</td>
+<td style="text-align: left;">4,025 (58.3)</td>
+<td style="text-align: left;">881 (56.7)</td>
+<td style="text-align: left;">22,810 (50.7)</td>
+<td style="text-align: left;">18,696 (49.7)</td>
+<td style="text-align: left;">3,595 (55.3)</td>
+<td style="text-align: left;">519 (57.6)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Statins (%)</td>
+<td style="text-align: left;">18,879 (48.8)</td>
+<td style="text-align: left;">14,606 (48.4)</td>
+<td style="text-align: left;">3,568 (51.7)</td>
+<td style="text-align: left;">705 (45.4)</td>
+<td style="text-align: left;">18,656 (41.4)</td>
+<td style="text-align: left;">15,378 (40.9)</td>
+<td style="text-align: left;">2,891 (44.5)</td>
+<td style="text-align: left;">387 (43.0)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Laboratory values</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">uACR, mg/g, median [IQR]</td>
+<td style="text-align: left;">14.1 [5.3, 26.9]</td>
+<td style="text-align: left;">11.5 [4.4, 26.9]</td>
+<td style="text-align: left;">20.8 [8.8, 26.9]</td>
+<td style="text-align: left;">19.2 [8.0, 26.9]</td>
+<td style="text-align: left;">7.3 [4.2, 14.1]</td>
+<td style="text-align: left;">7.1 [3.9, 11.7]</td>
+<td style="text-align: left;">11.2 [6.2, 20.8]</td>
+<td style="text-align: left;">9.7 [5.8, 21.6]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">eGFR, mL/min/1.73m2, median [IQR]</td>
+<td style="text-align: left;">90.5 [78.0, 100.3]</td>
+<td style="text-align: left;">91.4 [79.5, 100.9]</td>
+<td style="text-align: left;">88.1 [74.2, 98.5]</td>
+<td style="text-align: left;">81.4 [69.6, 91.8]</td>
+<td style="text-align: left;">95.8 [85.2, 105.4]</td>
+<td style="text-align: left;">96.3 [85.9, 105.8]</td>
+<td style="text-align: left;">93.6 [82.1, 103.8]</td>
+<td style="text-align: left;">89.1 [77.2, 97.7]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HbA1c, mmol/mol, median [IQR]</td>
+<td style="text-align: left;">46.0 [38.3, 56.8]</td>
+<td style="text-align: left;">45.8 [37.7, 56.3]</td>
+<td style="text-align: left;">48.0 [39.9, 59.2]</td>
+<td style="text-align: left;">45.4 [37.0, 56.3]</td>
+<td style="text-align: left;">48.0 [42.8, 57.0]</td>
+<td style="text-align: left;">47.5 [42.5, 56.2]</td>
+<td style="text-align: left;">49.3 [44.0, 59.0]</td>
+<td style="text-align: left;">49.0 [43.0, 59.0]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LDL, mg/dL, mean (SD)</td>
+<td style="text-align: left;">88.1 (39.0)</td>
+<td style="text-align: left;">88.6 (38.9)</td>
+<td style="text-align: left;">86.3 (39.3)</td>
+<td style="text-align: left;">86.6 (39.2)</td>
+<td style="text-align: left;">90.6 (41.9)</td>
+<td style="text-align: left;">91.1 (41.9)</td>
+<td style="text-align: left;">88.2 (41.5)</td>
+<td style="text-align: left;">85.7 (42.4)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HDL, mg/dL, median [IQR]</td>
+<td style="text-align: left;">22.1 [18.0, 27.1]</td>
+<td style="text-align: left;">22.1 [18.0, 27.1]</td>
+<td style="text-align: left;">21.8 [17.7, 26.7]</td>
+<td style="text-align: left;">22.7 [18.2, 28.4]</td>
+<td style="text-align: left;">21.9 [18.2, 26.7]</td>
+<td style="text-align: left;">21.9 [18.3, 26.7]</td>
+<td style="text-align: left;">21.6 [17.8, 26.2]</td>
+<td style="text-align: left;">22.0 [18.2, 28.0]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total cholesterol, mg/dL, median [IQR]</td>
+<td style="text-align: left;">109.6 [89.8, 142.3]</td>
+<td style="text-align: left;">109.8 [90.3, 142.1]</td>
+<td style="text-align: left;">108.1 [88.5, 141.0]</td>
+<td style="text-align: left;">111.0 [86.9, 150.8]</td>
+<td style="text-align: left;">98.8 [84.0, 115.9]</td>
+<td style="text-align: left;">98.9 [84.4, 116.0]</td>
+<td style="text-align: left;">98.2 [82.6, 115.5]</td>
+<td style="text-align: left;">96.4 [81.0, 114.6]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Total cholesterol:HDL ratio, mean (SD)</td>
+<td style="text-align: left;">4.1 (1.4)</td>
+<td style="text-align: left;">4.1 (1.4)</td>
+<td style="text-align: left;">4.1 (1.5)</td>
+<td style="text-align: left;">3.9 (1.6)</td>
+<td style="text-align: left;">4.1 (1.4)</td>
+<td style="text-align: left;">4.1 (1.4)</td>
+<td style="text-align: left;">4.2 (1.4)</td>
+<td style="text-align: left;">3.9 (1.4)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Triglycerides, mg/dL, median [IQR]</td>
+<td style="text-align: left;">128.4 [88.9, 181.6]</td>
+<td style="text-align: left;">127.0 [88.6, 179.8]</td>
+<td style="text-align: left;">135.8 [97.4, 191.3]</td>
+<td style="text-align: left;">119.6 [85.0, 166.1]</td>
+<td style="text-align: left;">132.9 [97.4, 188.0]</td>
+<td style="text-align: left;">132.9 [97.4, 186.9]</td>
+<td style="text-align: left;">139.9 [99.2, 194.1]</td>
+<td style="text-align: left;">124.0 [93.9, 177.1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Urine creatinine, mg/dL, median [IQR]</td>
+<td style="text-align: left;">99.5 [65.6, 143.7]</td>
+<td style="text-align: left;">100.7 [66.7, 145.9]</td>
+<td style="text-align: left;">93.9 [62.2, 136.9]</td>
+<td style="text-align: left;">83.7 [57.7, 120.5]</td>
+<td style="text-align: left;">109.7 [72.4, 157.2]</td>
+<td style="text-align: left;">111.6 [73.5, 158.7]</td>
+<td style="text-align: left;">101.8 [67.9, 147.6]</td>
+<td style="text-align: left;">96.2 [61.1, 136.9]</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</section>
+<section id="predictors" class="level2">
+<h2 class="anchored" data-anchor-id="predictors">Predictors</h2>
+<p>The following predictors were included:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Predictor</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; position: sticky; top: 0; background-color: #FFFFFF;">Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Female</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Age</td>
+<td style="text-align: left;">Natural spline w/ knot at 60</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Education</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Diabetes months</td>
+<td style="text-align: left;">Linear</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Comorbidities</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Atrial fibrillation</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Congestive heart failure</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cerebrovascular disease</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hypertension</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ischemic heart disease</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Neuropathy</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Diabetic complications</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Peripheral vascular disease</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Retinopathy</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ulcer</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Medication use</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Aspirin</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Beta blockers</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Glucose lowering drugs</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Calcium-channel blockers</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Anticoagulants</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Antihypertensives</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Insulin</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MRAs</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RASi</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Statins</td>
+<td style="text-align: left;">Binary</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Laboratory values</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">eGFR</td>
+<td style="text-align: left;">Natural spline w/ knot at 105</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Urine creatinine</td>
+<td style="text-align: left;">Natural spline w/ knot at 180</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HbA1c</td>
+<td style="text-align: left;">Natural spline w/ knots at 40 and 65</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total cholesterol</td>
+<td style="text-align: left;">Natural spline w/ knot at 100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HDL</td>
+<td style="text-align: left;">Natural spline w/ knot at 25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LDL</td>
+<td style="text-align: left;">Natural spline w/ knot at 80</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Triglycerides</td>
+<td style="text-align: left;">Linear</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total cholesterol:HDL</td>
+<td style="text-align: left;">Natrual spline w/ knot at 5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Baseline uACR</td>
+<td style="text-align: left;">Natural spline w/ knot at 15</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</section>
+<section id="fine-gray-model" class="level2">
+<h2 class="anchored" data-anchor-id="fine-gray-model">Fine-Gray model</h2>
+<p>The Fine-Gray model was developed in the development cohort (<em>n = 38,649</em>), where <em>6,904</em> individuals developed albuminuria, <em>1,553</em> died, and <em>30,192</em> were censored. In the temporal validation cohort (<em>n = 45,009</em>), <em>6,499</em> individuals developed albuminuria, <em>901</em> individuals died, and <em>37,609</em> individuals were censored.</p>
+<p>The calibration of the Fine-Gray model was good from one year onwards, with calibration at three years being:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fg_cal.png" class="img-fluid figure-img"></p>
+<figcaption>Fine-Gray calibration</figcaption>
+</figure>
+</div>
+<p>Although the right tail shows miscalibration, it is important to note that the majority of the 80,000 individuals had a predicted risk below 40%, where calibration was good. The C-statistic of the model was 0.64 (0.64-0.65) apparently and 0.66 (0.66-0.67) temporally. Although discrimination could be higher, the histograms below the above discrimination plot shows that the risks between individuals with and without event are separated in good discrimination for lower risk and higher risks with an indiscriminative range in-between. Thus, the model could be useful for the identification of individuals with a low and high risk.</p>
+</section>
+<section id="accelerated-failure-time-model" class="level2">
+<h2 class="anchored" data-anchor-id="accelerated-failure-time-model">Accelerated failure time model</h2>
+<p>The accelerated failure time (AFT) model was fit using two distributions: i) a Weibull distribution which assumes an increasing hazard of albuminuria over time, and ii) a log-normal distribution which assumes an early increase in hazard of albuminuria, with a decreasing hazard afterwards.</p>
+<p>For both distributions, we calculated the failure time (which can be interpeted as the number of days without albuminuria and not censored) and the risk of albuminuria. The failure time was poorly calibrated, with times far exceeding the observation time (although the calibration slope indicated no overfitting or underfitting). From the same model, we could calculate risks, which performed similar to the Fine-Gray model, indicating no model misspecification. The calibration plots of the failure time are given below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/aft_cal_eft.png" class="img-fluid figure-img"></p>
+<figcaption>AFT calibration</figcaption>
+</figure>
+</div>
+</section>
+<section id="multistate-model" class="level2">
+<h2 class="anchored" data-anchor-id="multistate-model">Multistate model</h2>
+<p>The multistate model was fitted with covariate expansion. The state model is seen below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/multistate.png" class="img-fluid figure-img"></p>
+<figcaption>State model</figcaption>
+</figure>
+</div>
+<p>For the development data, the transition numbers were:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Baseline</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Microalbuminuria</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Macroalbuminuria</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Death</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">No event</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Total entering</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Baseline</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5927</td>
+<td style="text-align: right;">977</td>
+<td style="text-align: right;">1553</td>
+<td style="text-align: right;">30192</td>
+<td style="text-align: right;">38649</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Microalbuminuria</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">423</td>
+<td style="text-align: right;">317</td>
+<td style="text-align: right;">5187</td>
+<td style="text-align: right;">5927</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Macroalbuminuria</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">141</td>
+<td style="text-align: right;">1259</td>
+<td style="text-align: right;">1400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Death</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2011</td>
+<td style="text-align: right;">2011</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>For the validation data, these were:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<table class="table table-striped table-hover table-condensed table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Baseline</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Microalbuminuria</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Macroalbuminuria</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Death</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">No event</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Total entering</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Baseline</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5240</td>
+<td style="text-align: right;">1256</td>
+<td style="text-align: right;">904</td>
+<td style="text-align: right;">37609</td>
+<td style="text-align: right;">45009</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Microalbuminuria</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">400</td>
+<td style="text-align: right;">245</td>
+<td style="text-align: right;">4595</td>
+<td style="text-align: right;">5240</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Macroalbuminuria</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">182</td>
+<td style="text-align: right;">1474</td>
+<td style="text-align: right;">1656</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Death</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1331</td>
+<td style="text-align: right;">1331</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>The model calibrated well from one year onwards, with calibration at three years being:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/cal_mstate_1095.png" class="img-fluid figure-img"></p>
+<figcaption>Multistate model calibration</figcaption>
+</figure>
+</div>
+<p>Additionally, discrimination at three years was 0.57 apparently and 0.54 temporally. If micro- and macroalbuminuria were considered together as a single outcome, this improved to 0.71 and 0.68 in apparent and temporal validation, respectively.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
